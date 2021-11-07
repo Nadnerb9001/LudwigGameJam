@@ -57,6 +57,18 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        string saveDataX = PlayerPrefs.GetString("SaveDataX");
+        string saveDataY = PlayerPrefs.GetString("SaveDataY");
+        string saveDataZ = PlayerPrefs.GetString("SaveDataZ");
+        PlayerPrefs.DeleteKey("SaveDataX");
+        PlayerPrefs.DeleteKey("SaveDataY");
+        PlayerPrefs.DeleteKey("SaveDataZ");
+
+        if (!string.IsNullOrEmpty(saveDataX))
+        {
+            hip.transform.position = new Vector3(float.Parse(saveDataX), float.Parse(saveDataY), float.Parse(saveDataZ));
+        }
+
         originalLocation = hip.transform.position;
         isGrabbing = new List<bool>() { false, false };
         cam = Camera.main;
@@ -247,6 +259,13 @@ public class PlayerController : MonoBehaviour
         {
             Ragdoll();
         }
+    }
+
+    public void SavePosition()
+    {
+        PlayerPrefs.SetString("SaveDataX", hip.transform.position.x.ToString());
+        PlayerPrefs.SetString("SaveDataY", hip.transform.position.y.ToString());
+        PlayerPrefs.SetString("SaveDataZ", hip.transform.position.z.ToString());
     }
 
     private void Jump()

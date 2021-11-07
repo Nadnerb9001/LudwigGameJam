@@ -24,6 +24,7 @@ public class GameMenu : MonoBehaviour
 
     public void ExitButton()
     {
+        controller.SavePosition();
         Application.Quit();
     }
 }
